@@ -1,6 +1,6 @@
 <?php
 
-use core\contrib\contrib;
+use admin\admin;
 
 $setup = array_merge([
     'add' => true,
@@ -20,7 +20,7 @@ if (!function_exists('__text')) {
 }
 
 ?>
-<?php if (in_array('models', $setup['include']) && !empty($models = contrib::$instance->getModels())) : ?>
+<?php if (in_array('models', $setup['include']) && !empty($models = admin::$instance->getModels())) : ?>
     <table class="w-full mb-8">
         <caption>
             <a href="<?= url('admin/models') ?>" class="bg-teal-600/75 block text-sm uppercase text-slate-50 px-2 py-1"><?= __('Models') ?></a>
@@ -62,7 +62,7 @@ if (!function_exists('__text')) {
         </tbody>
     </table>
 <?php endif ?>
-<?php if (in_array('menus', $setup['include']) && !empty($menus = contrib::$instance->getSetup('menus', []))) : ?>
+<?php if (in_array('menus', $setup['include']) && !empty($menus = admin::$instance->getSetup('menus', []))) : ?>
     <table class="w-full">
         <caption>
             <a href="<?= url('admin/menus') ?>" class="bg-teal-600/75 block text-sm uppercase text-slate-50 px-2 py-1"><?= __('Menus') ?></a>
