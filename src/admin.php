@@ -35,8 +35,8 @@ class admin
                 $app->router->add(...$route);
             }
 
-            if (isset($app->env['contrib'])) {
-                $this->setup = require $app->env['contrib'];
+            if (isset($app->env['admin'])) {
+                $this->setup = require $app->env['admin'];
             }
         }
     }
