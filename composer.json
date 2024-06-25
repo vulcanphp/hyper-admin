@@ -1,0 +1,16 @@
+{
+    "name": "vulcanphp/hyper-admin",
+    "description": "Simple Admin Panel for Hyper MVT Framework",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "admin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shahin Moyshan",
+            "email": "shahin.moyshan2@gmail.com"
+        }
+    ]
+}
