@@ -140,3 +140,29 @@ return [
 *   `where`: Conditions to apply (e.g., only include non-deleted records).
 *   `order`: Default ordering of records (e.g., 'id DESC').
 *   `actions`: Custom actions available for the model (e.g., export functionality).
+
+### Usage of Drawer
+
+For a local stored array, use the `drawer` class. Below is a complete example:
+
+```php
+use admin\core\drawer;
+
+$drawer = new drawer(__DIR__ .'/settings.dr');
+
+// set a value into drawer
+$drawer->set(layer: 'general', key: 'title', value: 'My Hyper App');
+
+// get a value from drawer
+var_dump($drawer->get(layer: 'general', key: 'title', default: 'My Default Title'));
+
+```    
+
+### Explanation of `drawer` Functions:
+
+*   `has`: Check if a value exist in the drawer.
+*   `is`: Check if a value is true in the drawer.
+*   `get`: Get a value from the drawer.
+*   `set`: Set a value into the drawer.
+*   `setup`: Set Multiple values into the drawer.
+*   `remove`: Delete a value from the drawer.
