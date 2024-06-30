@@ -7,6 +7,8 @@ return [
     ['path' => '/admin', 'callback' => [dashboard::class, 'index']],
     ['path' => '/admin/login', 'method' => ['GET', 'POST'], 'callback' => [dashboard::class, 'login']],
     ['path' => '/admin/logout', 'method' => ['POST'], 'callback' => [dashboard::class, 'logout']],
+    ['path' => '/admin/settings', 'callback' => [dashboard::class, 'settings']],
+    ['path' => '/admin/setting/{setting}', 'method' => ['GET', 'POST'], 'callback' => [dashboard::class, 'setting']],
     ['path' => '/admin/models', 'callback' => [dashboard::class, 'models']],
     ['path' => '/admin/menus', 'callback' => [dashboard::class, 'menus']],
     ['path' => '/admin/menu/{menu}', 'method' => ['GET', 'POST'], 'callback' => [dashboard::class, 'menu']],

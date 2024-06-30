@@ -9,6 +9,7 @@ $setup = array_merge([
     'menus_limit' => 5,
     'active_model' => null,
     'active_menu' => null,
+    'active_setting' => null,
     'include' => ['models', 'menus']
 ], $setup ?? []);
 
@@ -80,6 +81,31 @@ if (!function_exists('__text')) {
                         <th scope="row" class="text-left"><a class="text-teal-400 hover:text-teal-500 px-2 font-normal text-sm md:text-base py-1 inline-block" href="<?= url('admin/menu/' . $menu) ?>"><?= __text($menu) ?></a></th>
                     </tr>
                 <?php endif ?>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+<?php endif ?>
+<?php if (in_array('settings', $setup['include']) && !empty($settings = admin::$instance->getSetup('settings', []))) : ?>
+    <table class="w-full">
+        <caption>
+            <a href="<?= url('admin/settings') ?>" class="bg-teal-600/75 block text-sm uppercase text-slate-50 px-2 py-1"><?= __('Settings') ?></a>
+        </caption>
+        <tbody>
+            <?php foreach (array_keys($settings) as $key => $setting) : ?>
+                <?php $bg = $key % 2 != 0 ? 'bg-zinc-800' : '' ?>
+                <tr class="border-b <?= $setup['active_setting'] == $setting ? 'bg-teal-500/25' : $bg ?> border-zinc-800">
+                    <th scope="row" class="text-left"><a class="text-teal-400 hover:text-teal-500 px-2 font-normal text-sm md:text-base py-1 inline-block" href="<?= url('admin/setting/' . $setting) ?>"><?= __text($setting) ?></a></th>
+                    <td class="flex justify-end gap-2">
+                        <?php if ($setup['change']) : ?>
+                            <a href="<?= url('admin/setting/' . $setting) ?>" class="flex items-center justify-end gap-1 font-normal text-xs md:text-sm text-teal-400 hover:text-teal-500 px-2 py-1">
+                                <svg width="13" height="13" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#efb80b" d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z" />
+                                </svg>
+                                <?= __('Change') ?>
+                            </a>
+                        <?php endif ?>
+                    </td>
+                </tr>
             <?php endforeach ?>
         </tbody>
     </table>

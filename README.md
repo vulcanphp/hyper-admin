@@ -57,7 +57,27 @@ return [
         // Example 2: ['cms' => function() {}]
         // Example 3: ['api' => 'Hello From Api Key']
     ],
+    'settings' => [
+        // Register all grouped settings
+        'general' => [
+            // Register inputs for this group.
+            // Example 1: ['type' => 'text', 'name' => 'title']
+            // Example 2: ['type' => 'file', 'name' => 'logo']
+        ],
+    ],
 ];
+```
+### Settings Usage
+
+You can get setting value that registered into `app/bootstrap.php` file under **settings** array.
+
+```php
+// get a setting with default value
+var_dump(setting('general', 'title', 'My Default Title'));
+
+// get settings instance
+var_dump(settings());
+
 ```
 
 ModelView Usage

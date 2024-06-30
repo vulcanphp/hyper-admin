@@ -6,6 +6,7 @@ use hyper\response;
 use hyper\template;
 use hyper\application;
 use admin\core\modelView;
+use admin\core\drawer;
 use hyper\request;
 use hyper\session;
 use Exception;
@@ -14,6 +15,7 @@ class admin
 {
     public static admin $instance;
     private array $setup = [];
+    public drawer $settings;
 
     public function __construct()
     {
@@ -22,6 +24,8 @@ class admin
 
     public function setup(application $app): void
     {
+        $this->settings = new drawer(app_dir('settings.dr'));
+
         if (strpos($app->request->path, '/admin') === 0) {
 
             $this->checkUser($app->request, $app->session);
