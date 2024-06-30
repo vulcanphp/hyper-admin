@@ -26,7 +26,7 @@ class drawer
 
     public function get(string $layer, string $key, $default = null)
     {
-        return $key === '*' ? ($this->data[$layer] ?? []) : ($this->has($layer, $key) ? $this->data[$layer][$key] : $default);
+        return $key === '*' ? ($this->data[$layer] ?? $default) : ($this->has($layer, $key) ? $this->data[$layer][$key] : $default);
     }
 
     public function set(string $layer, string $key, $value): self

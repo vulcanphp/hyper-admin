@@ -75,7 +75,7 @@ class dashboard
             return redirect('/admin/settings');
         }
         $form = new form(request: $request, fields: $fields);
-        $form->load(admin::$instance->settings->get($setting, '*'));
+        $form->load(admin::$instance->settings->get($setting, '*', []));
 
         if ($request->method === 'POST' && $form->validate()) {
             $data = [];
