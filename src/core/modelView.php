@@ -23,12 +23,12 @@ class modelView
 
     public function name(): string
     {
-        return $this->name ?? $this->reflection()->getShortName();
+        return $this->name ??= $this->reflection()->getShortName();
     }
 
     public function name_plural(): string
     {
-        return $this->name_plural ?? $this->name();
+        return $this->name_plural ??= $this->name();
     }
 
     private function reflection(): ReflectionClass

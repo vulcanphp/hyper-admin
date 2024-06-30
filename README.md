@@ -41,7 +41,7 @@ return new application(
 
 ### Configure Admin Settings
 
-Create a new file `app/web/admin.php` and configure your admin settings. This file will define the users, models, and menus for your admin panel.
+Create a new file `app/web/admin.php` and configure your admin settings. This file will define the users, models, menus, and settings for your admin panel.
 
 Example configuration:
 ```php
@@ -64,6 +64,7 @@ return [
             // Example 1: ['type' => 'text', 'name' => 'title']
             // Example 2: ['type' => 'file', 'name' => 'logo']
         ],
+        // ... more groped settings
     ],
 ];
 ```
