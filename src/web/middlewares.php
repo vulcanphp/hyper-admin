@@ -1,6 +1,5 @@
 <?php
 
-use admin\admin;
 use hyper\request;
 
 function checkLoggedUser(request $request)
