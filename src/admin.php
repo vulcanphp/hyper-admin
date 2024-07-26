@@ -28,8 +28,6 @@ class admin
         $this->settings = new drawer(app_dir('settings.dr'));
         $this->prefix = $app->env['admin_prefix'];
 
-        require __DIR__ . '/helpers/shortcut.php'; // TODO: Temporary included, Remove after pushed to git.
-
         if (strpos($app->request->path, $this->prefix) === 0) {
 
             $this->checkUser($app->request, $app->session);
