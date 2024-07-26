@@ -10,7 +10,7 @@ function admin_url($prefix = '')
 
 function admin_prefix($prefix = '')
 {
-    return admin::$instance->prefix . '/' . ltrim($prefix);
+    return rtrim(admin::$instance->prefix . '/' . ltrim($prefix), '/');
 }
 
 function admin(): admin
