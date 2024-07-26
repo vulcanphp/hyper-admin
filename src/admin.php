@@ -15,6 +15,7 @@ class admin
 {
     public static admin $instance;
     private array $setup = [];
+    public string $prefix;
     public drawer $settings;
 
     public function __construct()
@@ -25,8 +26,11 @@ class admin
     public function setup(application $app): void
     {
         $this->settings = new drawer(app_dir('settings.dr'));
+        $this->prefix = $app->env['admin_prefix'];
 
-        if (strpos($app->request->path, '/admin') === 0) {
+        require __DIR__ . '/helpers/shortcut.php'; // TODO: Temporary included, Remove after pushed to git.
+
+        if (strpos($app->request->path, $this->prefix) === 0) {
 
             $this->checkUser($app->request, $app->session);
 
@@ -36,6 +40,7 @@ class admin
             $app->addRouteMiddleware('checkNotLoggedUser');
 
             foreach (require __DIR__ . '/web/routes.php' as $route) {
+                $route['path'] = $this->prefix . $route['path'];
                 $app->router->add(...$route);
             }
 
@@ -76,10 +81,10 @@ class admin
         return $this->setup[$key] ?? $default;
     }
 
-    public function checkUser(request $request, session $session): void
+    private function checkUser(request $request, session $session): void
     {
-        if ($session->has('logged') && $session->has('logged')) {
-            $request->user = $this->getSetup('user', ['name' => 'admin', 'password' => 'admin']);
+        if ($session->has('logged') && $session->get('logged')) {
+            $request->user = $this->getSetup('user', ['name' => 'admin']);
         }
     }
 }

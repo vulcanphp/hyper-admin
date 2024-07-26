@@ -50,7 +50,7 @@ if (!function_exists('parseBrowseFieldValue')) {
                         <?php $fieldValue = parseBrowseFieldValue($row->{$field}) ?>
                         <td class="px-2 py-1">
                             <?php if ($key == 0) : ?>
-                                <a class="text-teal-400 hover:text-teal-500" href="<?= url('admin/model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $fieldValue ?></a>
+                                <a class="text-teal-400 hover:text-teal-500" href="<?= admin_url('model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $fieldValue ?></a>
                             <?php else : ?>
                                 <?= $fieldValue ?>
                             <?php endif ?>
@@ -58,7 +58,7 @@ if (!function_exists('parseBrowseFieldValue')) {
                     <?php endforeach ?>
                 <?php else : ?>
                     <td class="px-2 py-1">
-                        <a class="text-teal-400 hover:text-teal-500" href="<?= url('admin/model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $row ?></a>
+                        <a class="text-teal-400 hover:text-teal-500" href="<?= admin_url('model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $row ?></a>
                     </td>
                 <?php endif ?>
             </tr>

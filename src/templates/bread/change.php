@@ -4,8 +4,8 @@ $this->layout('master');
 $this->set('title', $object . ' - Change ' . $model->name() . ' | Model administration');
 $this->set('navigation', [
     'links' => [
-        'Models' => url('admin/models'),
-        $model->name() => url('admin/model/' . $model->name()),
+        'Models' => admin_url('models'),
+        $model->name() => admin_url('model/' . $model->name()),
     ],
     'active' => 'Change'
 ]);
@@ -27,7 +27,7 @@ $this->set('navigation', [
                     <button onclick="document.getElementById('deleteObjectForm').submit()" type="button" class="px-4 md:ml-auto py-2 text-sm rounded bg-red-600/75 hover:bg-red-600 text-red-100"><?= __('Delete') ?></button>
                 </div>
             </form>
-            <form id="deleteObjectForm" method="post" action="<?= url('admin/model/' . $model->name() . '/delete') ?>">
+            <form id="deleteObjectForm" method="post" action="<?= admin_url('model/' . $model->name() . '/delete') ?>">
                 <?= csrf() ?>
                 <input type="hidden" name="ids" value="<?= $object->id ?>">
             </form>

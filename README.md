@@ -123,7 +123,7 @@ return [
             with: ['department'],
             where: ['deleted' => false],
             order: 'id DESC',
-            actions: ['Export Selected Students Result Sheet' => url('admin/student/export')]
+            actions: ['Export Selected Students Result Sheet' => admin_url('student/export')]
         ), // Customized model
     ],
 ];

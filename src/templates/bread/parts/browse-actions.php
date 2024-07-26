@@ -3,7 +3,7 @@
     <label for="bulkAction" class="mr-2"><?= __('Action') ?>:</label>
     <select id="bulkAction" class="bg-zinc-900 px-2 text-slate-100 border border-zinc-600 rounded-sm">
         <option value="">---------</option>
-        <option value="<?= url('admin/model/' . $model->name() . '/delete') ?>"><?= __('Delete selected ' . $model->name_plural()) ?></option>
+        <option value="<?= admin_url('model/' . $model->name() . '/delete') ?>"><?= __('Delete selected ' . $model->name_plural()) ?></option>
         <?php if ($model->hasActions()) : ?>
             <?php foreach ($model->getActions() as $action => $url) : ?>
                 <option value="<?= $url ?>"><?= __($action) ?></option>

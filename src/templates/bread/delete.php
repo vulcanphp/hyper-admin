@@ -4,8 +4,8 @@ $this->layout('master');
 $this->set('title', 'Are you sure? - ' .  $model->name() . ' delete confirmation');
 $this->set('navigation', [
     'links' => [
-        'Models' => url('admin/models'),
-        $model->name() => url('admin/model/' . $model->name()),
+        'Models' => admin_url('models'),
+        $model->name() => admin_url('model/' . $model->name()),
     ],
     'active' => 'Delete'
 ]);

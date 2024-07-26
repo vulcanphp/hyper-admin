@@ -5,7 +5,7 @@ $this->layout('master')
 
 $this->set('navigation', [
     'links' => [
-        'Menus' => url('admin/menus'),
+        'Menus' => admin_url('menus'),
     ],
     'active' => $menu
 ]);

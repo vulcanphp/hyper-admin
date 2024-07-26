@@ -31,7 +31,7 @@ class bread
         $object = $model->getModel()->find($id);
         if (!$object) {
             session()->set('warning', str_replace('##', $id, __('There is no ' . $model->name() . ' with id ##', true)));
-            return redirect('/admin/model/' . $model->name());
+            return redirect(admin_prefix('model/' . $model->name()));
         }
         $form = new form(request: $request, model: $object);
         if ($request->method === 'POST') {
@@ -66,11 +66,11 @@ class bread
             } else {
                 session()->set('warning', __('Failed to delete all selected ' . $model->name_plural() . '.', true));
             }
-            return redirect('/admin/model/' . $model->name());
+            return redirect(admin_prefix('model/' . $model->name()));
         }
         if (empty($objects)) {
             session()->set('warning', __('There is no ' . $model->name_plural() . ' available to delete.', true));
-            return redirect('/admin/model/' . $model->name());
+            return redirect(admin_prefix('model/' . $model->name()));
         }
         return admin::$instance->template('bread/delete', ['model' => $model, 'objects' => $objects]);
     }
@@ -80,19 +80,19 @@ class bread
     {
         if ($form->validate() && $form->save()) {
             $saved = $form->getModel();
-            $message = str_replace('##', '“<a class="text-cyan-400" href="' . url('admin/model/' . $model->name() . '/' . $saved->id . '/change') . '">' . $saved . '</a>”', __('The ' . $model->name() . ' ## was ' . $action . ' successfully.', true));
+            $message = str_replace('##', '“<a class="text-cyan-400" href="' . admin_url('model/' . $model->name() . '/' . $saved->id . '/change') . '">' . $saved . '</a>”', __('The ' . $model->name() . ' ## was ' . $action . ' successfully.', true));
             if (!empty($request->post('_save_add'))) {
                 session()->set('success', $message . __(' You may add another ' . $model->name() . ' below.', true));
-                return redirect('/admin/model/' . $model->name() . '/add');
+                return redirect(admin_prefix('model/' . $model->name() . '/add'));
             } elseif (!empty($request->post('_save_edit'))) {
                 session()->set('success', $message . __(' You may edit it again below.', true));
-                return redirect('/admin/model/' . $model->name() . '/' . $saved->id . '/change');
+                return redirect(admin_prefix('model/' . $model->name() . '/' . $saved->id . '/change'));
             } else {
                 session()->set('success', $message);
             }
         } else {
             session()->set('error', __('Failed to save ' . $model->name(), true));
         }
-        return redirect('/admin/model/' . $model->name());
+        return redirect(admin_prefix('model/' . $model->name()));
     }
 }

@@ -3,9 +3,10 @@
 namespace admin\views;
 
 use admin\admin;
-use hyper\helpers\uploader;
 use hyper\request;
 use hyper\utils\form;
+use hyper\utils\hash;
+use hyper\helpers\uploader;
 
 class dashboard
 {
@@ -30,13 +31,26 @@ class dashboard
     {
         $error = '';
         if ($request->method === 'POST') {
-            $user = admin::$instance->getSetup('user', ['name' => 'admin', 'password' => 'admin']);
-            if ($request->post('password') === $user['password']) {
+            $password = setting('admin_user', 'password', false);
+            $user = admin::$instance->getSetup('user', ['name' => 'admin']);
+            $attemp_login = false;
+            if (!$password || ($user['reset'] ?? false)) {
+                if ($request->post('confirm_password') === $request->post('password')) {
+                    admin::$instance->settings->set('admin_user', 'password', hash::make($request->post('confirm_password')));
+                    $attemp_login = true;
+                } else {
+                    $error = __('Password Confirmation Failed', true);
+                }
+            } elseif (hash::validate($request->post('password'), $password)) {
+                $attemp_login = true;
+            } else {
+                $error = __('Incorrect password', true);
+            }
+
+            if ($attemp_login) {
                 session()->set('logged', true);
                 $request->user = $user;
-                return redirect('/admin');
-            } else {
-                $error = __('Incorrect password');
+                return redirect(admin_prefix());
             }
         }
         return admin::$instance->template('auth/login', ['error' => $error]);
@@ -52,7 +66,7 @@ class dashboard
     function menu(request $request, string $menu)
     {
         if (($callback = admin::$instance->getSetup('menus', [])[$menu] ?? null) == null) {
-            return redirect('/admin/menus');
+            return redirect(admin_prefix('menus'));
         }
         if (is_callable($callback)) {
             $content = call_user_func($callback, $request);
@@ -72,7 +86,7 @@ class dashboard
     function setting(request $request, string $setting)
     {
         if (($fields = admin::$instance->getSetup('settings', [])[$setting] ?? null) == null) {
-            return redirect('/admin/settings');
+            return redirect(admin_prefix('settings'));
         }
         $form = new form(request: $request, fields: $fields);
         $form->load(admin::$instance->settings->get($setting, '*', []));
@@ -95,7 +109,7 @@ class dashboard
             }
             admin::$instance->settings->setup($setting, $data);
             session()->set('success', __('Settings for ' . $setting . ' has been saved.', true));
-            return redirect('/admin/setting/' . $setting);
+            return redirect(admin_prefix('setting/' . $setting));
         }
 
         return admin::$instance->template('setting', ['form' => $form, 'setting' => $setting]);

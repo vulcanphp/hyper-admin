@@ -5,7 +5,10 @@
     "autoload": {
         "psr-4": {
             "admin\\": "src/"
-        }
+        },
+        "files": [
+            "./src/helpers/shortcut.php"
+        ]
     },
     "authors": [
         {

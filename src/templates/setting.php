@@ -4,7 +4,7 @@ $this->layout('master');
 $this->set('title', 'Change ' .  $setting . ' settings - Administration');
 $this->set('navigation', [
     'links' => [
-        'Settings' => url('admin/settings'),
+        'Settings' => admin_url('settings'),
     ],
     'active' => $setting
 ]);
