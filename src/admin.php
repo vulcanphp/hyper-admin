@@ -28,9 +28,11 @@ class admin
         $this->settings = new drawer(app_dir('settings.dr'));
         $this->prefix = $app->env['admin_prefix'];
 
-        require __DIR__ . '/helpers/shortcut.php'; // TODO: Temporary included, Remove after pushed to git.
-
         if (strpos($app->request->path, $this->prefix) === 0) {
+
+            if (isset($app->env['admin'])) {
+                $this->setup = require $app->env['admin'];
+            }
 
             $this->checkUser($app->request, $app->session);
 
@@ -42,10 +44,6 @@ class admin
             foreach (require __DIR__ . '/web/routes.php' as $route) {
                 $route['path'] = $this->prefix . $route['path'];
                 $app->router->add(...$route);
-            }
-
-            if (isset($app->env['admin'])) {
-                $this->setup = require $app->env['admin'];
             }
         }
     }
