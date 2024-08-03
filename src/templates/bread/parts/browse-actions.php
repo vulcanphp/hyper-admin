@@ -1,7 +1,8 @@
-<form id="bulkActionForm" method="post" class="mb-3 flex items-center text-sm">
+<form fire action="" id="bulkActionForm" method="post" class="mb-3 flex items-center text-sm">
     <?= csrf() ?>
+    <input type="hidden" name="ids" id="bulkActionIds">
     <label for="bulkAction" class="mr-2"><?= __('Action') ?>:</label>
-    <select id="bulkAction" class="bg-zinc-900 px-2 text-slate-100 border border-zinc-600 rounded-sm">
+    <select id="bulkAction" required class="bg-zinc-900 px-2 text-slate-100 border border-zinc-600 rounded-sm">
         <option value="">---------</option>
         <option value="<?= admin_url('model/' . $model->name() . '/delete') ?>"><?= __('Delete selected ' . $model->name_plural()) ?></option>
         <?php if ($model->hasActions()) : ?>

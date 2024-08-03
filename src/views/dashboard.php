@@ -66,7 +66,7 @@ class dashboard
     function menu(request $request, string $menu)
     {
         if (($callback = admin::$instance->getSetup('menus', [])[$menu] ?? null) == null) {
-            return redirect(admin_prefix('menus'));
+            return $request->accept('application/json') ? response()->json(['push' => admin_prefix('menus')]) : redirect(admin_prefix('menus'));
         }
         if (is_callable($callback)) {
             $content = call_user_func($callback, $request);
@@ -85,8 +85,9 @@ class dashboard
 
     function setting(request $request, string $setting)
     {
+        $is_ajax = $request->accept('application/json');
         if (($fields = admin::$instance->getSetup('settings', [])[$setting] ?? null) == null) {
-            return redirect(admin_prefix('settings'));
+            return $is_ajax ? response()->json(['push' => admin_prefix('settings')]) : redirect(admin_prefix('settings'));
         }
         $form = new form(request: $request, fields: $fields);
         $form->load(admin::$instance->settings->get($setting, '*', []));
@@ -109,7 +110,7 @@ class dashboard
             }
             admin::$instance->settings->setup($setting, $data);
             session()->set('success', __('Settings for ' . $setting . ' has been saved.', true));
-            return redirect(admin_prefix('setting/' . $setting));
+            return $is_ajax ? response()->json(['push' => admin_prefix('setting/' . $setting)]) : redirect(admin_prefix('setting/' . $setting));
         }
 
         return admin::$instance->template('setting', ['form' => $form, 'setting' => $setting]);

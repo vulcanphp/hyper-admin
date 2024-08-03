@@ -42,6 +42,7 @@ class bread
 
     function delete(request $request, string $model)
     {
+        $is_ajax = $request->accept('application/json');
         $model = admin::$instance->getModel($model);
         $objects = $model->getModel()->where(['id' => explode(',', $request->post('deleteConfirmed', $request->post('ids', '')))])->result();
         if (!empty($objects) && !empty($request->post('deleteConfirmed'))) {
@@ -66,11 +67,13 @@ class bread
             } else {
                 session()->set('warning', __('Failed to delete all selected ' . $model->name_plural() . '.', true));
             }
-            return redirect(admin_prefix('model/' . $model->name()));
+            $redirect = admin_prefix('model/' . $model->name());
+            return $is_ajax ? response()->json(['push' => $redirect]) : redirect($redirect);
         }
         if (empty($objects)) {
             session()->set('warning', __('There is no ' . $model->name_plural() . ' available to delete.', true));
-            return redirect(admin_prefix('model/' . $model->name()));
+            $redirect = admin_prefix('model/' . $model->name());
+            return $is_ajax ? response()->json(['push' => $redirect]) : redirect($redirect);
         }
         return admin::$instance->template('bread/delete', ['model' => $model, 'objects' => $objects]);
     }
@@ -78,21 +81,25 @@ class bread
     /** Private Functions for Bread..*/
     private function saveForm(form $form, request $request, modelView $model, string $action)
     {
+        $is_ajax = $request->accept('application/json');
         if ($form->validate() && $form->save()) {
             $saved = $form->getModel();
-            $message = str_replace('##', '“<a class="text-cyan-400" href="' . admin_url('model/' . $model->name() . '/' . $saved->id . '/change') . '">' . $saved . '</a>”', __('The ' . $model->name() . ' ## was ' . $action . ' successfully.', true));
+            $message = str_replace('##', '“<a fire class="text-cyan-400" href="' . admin_url('model/' . $model->name() . '/' . $saved->id . '/change') . '">' . $saved . '</a>”', __('The ' . $model->name() . ' ## was ' . $action . ' successfully.', true));
             if (!empty($request->post('_save_add'))) {
                 session()->set('success', $message . __(' You may add another ' . $model->name() . ' below.', true));
-                return redirect(admin_prefix('model/' . $model->name() . '/add'));
+                $redirect = admin_prefix('model/' . $model->name() . '/add');
+                return $is_ajax ? response()->json(['push' => $redirect]) : redirect($redirect);
             } elseif (!empty($request->post('_save_edit'))) {
                 session()->set('success', $message . __(' You may edit it again below.', true));
-                return redirect(admin_prefix('model/' . $model->name() . '/' . $saved->id . '/change'));
+                $redirect = admin_prefix('model/' . $model->name() . '/' . $saved->id . '/change');
+                return $is_ajax ? response()->json(['push' => $redirect]) : redirect($redirect);
             } else {
                 session()->set('success', $message);
             }
         } else {
             session()->set('error', __('Failed to save ' . $model->name(), true));
         }
-        return redirect(admin_prefix('model/' . $model->name()));
+        $redirect = admin_prefix('model/' . $model->name());
+        return $is_ajax ? response()->json(['push' => $redirect]) : redirect($redirect);
     }
 }

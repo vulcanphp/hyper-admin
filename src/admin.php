@@ -14,7 +14,12 @@ use Exception;
 class admin
 {
     public static admin $instance;
-    private array $setup = [];
+    private array $setup = [
+        'enque' => [
+            'css' => [__DIR__ . '/assets/app.css'],
+            'js' => [__DIR__ . '/assets/app.js'],
+        ],
+    ];
     public string $prefix;
     public drawer $settings;
 
@@ -31,7 +36,7 @@ class admin
         if (strpos($app->request->path, $this->prefix) === 0) {
 
             if (isset($app->env['admin'])) {
-                $this->setup = require $app->env['admin'];
+                $this->setup = array_merge($this->setup, require $app->env['admin']);
             }
 
             $this->checkUser($app->request, $app->session);
@@ -77,6 +82,21 @@ class admin
     public function getSetup(string $key, $default = null): mixed
     {
         return $this->setup[$key] ?? $default;
+    }
+
+    public function enque(string $type, string $file): self
+    {
+        $this->setup['enque'][$type][] = $file;
+        return $this;
+    }
+
+    public function deque(string $type): string
+    {
+        $scripts = '';
+        foreach ($this->setup['enque'][$type] ?? [] as $script) {
+            $scripts .= is_file($script) ? file_get_contents($script) : $script;
+        }
+        return $scripts;
     }
 
     private function checkUser(request $request, session $session): void

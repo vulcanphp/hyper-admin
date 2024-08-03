@@ -17,7 +17,7 @@ if (!function_exists('parseBrowseFieldValue')) {
                     <th class="text-left font-normal uppercase">
                         <div class="group flex items-center justify-between px-2 py-1 <?= !$orderP ? ($canOrder ? 'hover:bg-zinc-900/35' : '') : 'bg-zinc-900/35' ?>">
                             <?php if ($canOrder) : ?>
-                                <a class="active:underline w-full" href="<?= sort_link($field) ?>"><?= __(str_replace(['_', '-'], ' ', $field)) ?></a>
+                                <a fire class="active:underline w-full" href="<?= sort_link($field) ?>"><?= __(str_replace(['_', '-'], ' ', $field)) ?></a>
                                 <?php if ($orderP) : ?>
                                     <span class="flex items-center">
                                         <span class="text-xs opacity-75 mr-1"><?= $orderP ?></span>
@@ -50,7 +50,7 @@ if (!function_exists('parseBrowseFieldValue')) {
                         <?php $fieldValue = parseBrowseFieldValue($row->{$field}) ?>
                         <td class="px-2 py-1">
                             <?php if ($key == 0) : ?>
-                                <a class="text-teal-400 hover:text-teal-500" href="<?= admin_url('model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $fieldValue ?></a>
+                                <a fire class="text-teal-400 hover:text-teal-500" href="<?= admin_url('model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $fieldValue ?></a>
                             <?php else : ?>
                                 <?= $fieldValue ?>
                             <?php endif ?>
@@ -58,7 +58,7 @@ if (!function_exists('parseBrowseFieldValue')) {
                     <?php endforeach ?>
                 <?php else : ?>
                     <td class="px-2 py-1">
-                        <a class="text-teal-400 hover:text-teal-500" href="<?= admin_url('model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $row ?></a>
+                        <a fire class="text-teal-400 hover:text-teal-500" href="<?= admin_url('model/' . $model->name() . '/' . $row->id . '/change') ?>"><?= $row ?></a>
                     </td>
                 <?php endif ?>
             </tr>

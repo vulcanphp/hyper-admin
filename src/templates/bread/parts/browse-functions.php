@@ -127,7 +127,6 @@ if (!function_exists('get_filters')) {
 if (!function_exists('filter_query_string')) {
     function filter_query_string(callable $filter): string
     {
-
         $url = request_url();
         $query = [];
         if (strpos($url, '?') !== false) {

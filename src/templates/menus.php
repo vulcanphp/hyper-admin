@@ -2,12 +2,12 @@
 
 $this->layout('master')
     ->set('title', 'Menus - Administration');
+?>
 
-$this->set('navigation', [
+<?= $this->template('includes/navigation', [
     'links' => [],
     'active' => 'Menus'
-]);
-?>
+]); ?>
 
 <section class="w-full xl:w-8/12 px-4 md:px-8 lg:px-10 py-3 md:py-4 lg:py-6">
     <h2 class="text-xl lg:text-2xl font-light mb-8"><?= __('Menus') ?></h2>

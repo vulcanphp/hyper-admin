@@ -2,14 +2,14 @@
 
 $this->layout('master')
     ->set('title', $menu . ' - Administration');
+?>
 
-$this->set('navigation', [
+<?= $this->template('includes/navigation', [
     'links' => [
         'Menus' => admin_url('menus'),
     ],
     'active' => $menu
-]);
-?>
+]); ?>
 
 <section class="flex">
     <?= $this->template('includes/sidebar', ['setup' => ['active_menu' => $menu]]) ?>

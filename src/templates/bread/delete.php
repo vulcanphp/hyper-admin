@@ -2,15 +2,17 @@
 
 $this->layout('master');
 $this->set('title', 'Are you sure? - ' .  $model->name() . ' delete confirmation');
-$this->set('navigation', [
+$this->set('model', $model);
+?>
+
+<?= $this->template('includes/navigation', [
     'links' => [
         'Models' => admin_url('models'),
         $model->name() => admin_url('model/' . $model->name()),
     ],
     'active' => 'Delete'
-]);
-$this->set('model', $model);
-?>
+]); ?>
+
 <section class="flex">
     <?= $this->template('includes/sidebar', ['setup' => ['active_model' => $model->name()]]) ?>
     <div id="content" class="w-full px-4 md:px-8 lg:px-10 py-3 md:py-4 lg:py-6">
@@ -21,3 +23,5 @@ $this->set('model', $model);
         <?= $this->template('bread/parts/delete-form') ?>
     </div>
 </section>
+
+<?php $this->remove('model') ?>
