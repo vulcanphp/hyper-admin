@@ -21,7 +21,7 @@
                                     <?php foreach ($relObj->getRegisteredUploads() as $u) : ?>
                                         <ul class="pl-6 list-disc mb-1">
                                             <?php foreach ((array) $relObj->{$u['name']} as $f) : ?>
-                                                <li class="mb-1"><?= ucwords(str_replace(['_', '-'], ' ', $u['name'])) ?>: <a fire class="text-indigo-300 hover:underline" href="<?= media_url($f) ?>"><?= $f ?></a></li>
+                                                <li class="mb-1"><?= ucwords(str_replace(['_', '-'], ' ', $u['name'])) ?>: <a target="_blank" class="text-indigo-300 hover:underline" href="<?= media_url($f) ?>"><?= $f ?></a></li>
                                             <?php endforeach ?>
                                         </ul>
                                     <?php endforeach ?>
@@ -36,7 +36,7 @@
                     <?php if (!empty($ufs = (array) $object->{$u['name']})) : ?>
                         <ul class="pl-6 list-disc mb-1">
                             <?php foreach ($ufs as $f) : ?>
-                                <li class="mb-1"><?= ucwords(str_replace(['_', '-'], ' ', $u['name'])) ?>: <a fire class="text-indigo-300 hover:underline" href="<?= media_url($f) ?>"><?= $f ?></a></li>
+                                <li class="mb-1"><?= ucwords(str_replace(['_', '-'], ' ', $u['name'])) ?>: <a target="_blank" class="text-indigo-300 hover:underline" href="<?= media_url($f) ?>"><?= $f ?></a></li>
                             <?php endforeach ?>
                         </ul>
                     <?php endif ?>

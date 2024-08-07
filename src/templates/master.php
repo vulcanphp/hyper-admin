@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
+    <title><?= strip_tags($title) ?></title>
     <style type="text/css">
         <?= admin()->deque('css') ?>#fire-error-content {
             max-width: 450px;

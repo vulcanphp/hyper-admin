@@ -9,7 +9,7 @@ use admin\core\modelView;
 
 class bread
 {
-    function browse(request $request, string $model)
+    function browse($model)
     {
         $model = admin::$instance->getModel($model);
         return admin::$instance->template('bread/browse', ['model' => $model]);

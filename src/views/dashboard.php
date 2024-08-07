@@ -100,7 +100,7 @@ class dashboard
                     $upload = [
                         'uploadDir' => env('upload_dir') . '/settings',
                         'multiple' => $field['multiple'],
-                        'extensions' => ['jpg', 'jpeg', 'png', 'gif', 'html', 'zip', 'pdf', 'doc', 'xlsx', 'csv', 'mp3', 'mp4'],
+                        'extensions' => ['jpg', 'jpeg', 'png', 'svg', 'gif', 'html', 'zip', 'pdf', 'doc', 'xlsx', 'csv', 'mp3', 'mp4'],
                         'maxSize' => 1048576 * 20, // 20 MB
                     ];
                     $data[$name] = $this->__doUpload($name, $upload, $field['value']);
