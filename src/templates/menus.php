@@ -1,10 +1,10 @@
 <?php
 
-$this->layout('master')
+$template->layout('master')
     ->set('title', 'Menus - Administration');
 ?>
 
-<?= $this->template('includes/navigation', [
+<?= $template->include('includes/navigation', [
     'links' => [],
     'active' => 'Menus'
 ]); ?>
@@ -13,7 +13,7 @@ $this->layout('master')
     <h2 class="text-xl lg:text-2xl font-light mb-8"><?= __('Menus') ?></h2>
     <div class="flex flex-col md:flex-row gap-10">
         <div class="w-full md:w-7/12 lg:w-8/12">
-            <?= $this->template('includes/tables', [
+            <?= $template->include('includes/tables', [
                 'setup' => [
                     'include' => ['menus'],
                     'menus_limit' => 500
