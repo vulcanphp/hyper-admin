@@ -182,7 +182,7 @@ class dashboard
         $is_ajax = $request->accept('application/json');
 
         // Get the fields for the setting.
-        $fields = admin::$instance->getSetup('settings', [$setting => []]);
+        $fields = admin::$instance->getSetup('settings', [])[$setting] ?? null;
 
         // If the setting doesn't exist, redirect to the settings page.
         if ($fields === null) {
